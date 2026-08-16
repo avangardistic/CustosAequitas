@@ -1,0 +1,19 @@
+# CustosAequitas Sample Configuration
+# Copy these settings to your EA parameters
+
+TestBatchSize = 10
+TestVolume = 0.01
+TestIntervalMin = 30
+EnableAutoTest = true
+
+AutoGenerateReport = true
+ReportThreshold = 50
+ExportCSV = true
+
+EnableHardening = true
+BaseRiskPercent = 2.0
+ShowDashboard = true
+
+MaxRecords = 5000
+DashboardUpdateSec = 5
+ShowAlerts = true
