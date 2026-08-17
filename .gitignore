@@ -1,54 +1,31 @@
 ```
-# Compiled/Generated files
-*.mq5
-*.mq4
-*.ex5
-*.ex4
+# Executables and binaries
+bin/
 
-# Dependencies
-node_modules/
-.venv/
-venv/
-__pycache__/
-*.egg-info/
-.Python
-
-# Build/Output directories
-build/
-dist/
-target/
-out/
-
-# Logs
+# Logs and temporary files
 *.log
-*.out
-
-# Temporary files
 *.tmp
-*.temp
-*~
 
-# Environment variables
+# Environment files
 .env
 .env.local
 .env.*
 
-# Editor/IDE
-.vscode/
-.idea/
-*.swp
-*.swo
-
-# OS
-.DS_Store
-Thumbs.db
-
-# Coverage
+# Dependencies and build artifacts
+node_modules/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+dist/
+build/
+*.egg-info/
+.eggs/
 .coverage
-htmlcov/
 coverage/
-
-# Python validator artifacts
-Tests/Synthetic/datasets/*.csv
-Tests/Synthetic/datasets/*.json
+htmlcov/
+.pytest_cache/
+.mypy_cache/
+.tox/
+nox/
 ```

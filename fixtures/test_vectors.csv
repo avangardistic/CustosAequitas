@@ -1,0 +1,6 @@
+test_name,input_data,expected_mean,expected_median,expected_stddev,expected_mad,expected_skewness
+simple_sequence,1;2;3;4;5,3.0,3,1.5811388300841898,1,0.0
+single_element,42.5,42.5,42.5,nan,0.0,nan
+constant_data,7.0;7.0;7.0;7.0;7.0;7.0;7.0;7.0;7.0;7.0,7.0,7.0,0.0,0.0,nan
+symmetric,-2;-1;0;1;2,0.0,0,1.5811388300841898,1,0.0
+positive_skew,1;1;1;1;10,2.8,1,4.024922359499621,0,1.5

@@ -139,14 +139,14 @@ def calculate_mad(data: List[float]) -> float:
 def calculate_skewness(data: List[float]) -> float:
     """Calculate skewness (Fisher-Pearson)."""
     if len(data) < 3:
-        return 0.0
+        return float('nan')
     
     n = len(data)
     mean = calculate_mean(data)
     std = calculate_stddev(data, sample=False)
     
     if std == 0:
-        return 0.0
+        return float('nan')
     
     # Fisher-Pearson standardized moment
     m3 = sum((x - mean) ** 3 for x in data) / n
@@ -204,8 +204,15 @@ def validate_test_vectors(vectors: List[Dict], tolerance: float = 1e-6) -> List[
             if mql5_key not in vec and expected_key not in vec:
                 continue
             
-            # Get values
-            mql5_val = float(vec.get(mql5_key, vec.get(expected_key, 'nan')))
+            # Get values - handle empty strings as NaN
+            raw_val = vec.get(mql5_key, vec.get(expected_key, ''))
+            if raw_val == '' or raw_val is None:
+                mql5_val = float('nan')
+            else:
+                try:
+                    mql5_val = float(raw_val)
+                except ValueError:
+                    mql5_val = float('nan')
             
             # Calculate expected in Python
             if metric == 'mean':
@@ -227,8 +234,16 @@ def validate_test_vectors(vectors: List[Dict], tolerance: float = 1e-6) -> List[
             else:
                 continue
             
-            diff = abs(mql5_val - py_val) if not (math.isnan(mql5_val) or math.isnan(py_val)) else float('nan')
-            passed = diff <= tolerance if not math.isnan(diff) else False
+            # Handle NaN comparison: both NaN means pass
+            if math.isnan(mql5_val) and math.isnan(py_val):
+                diff = 0.0
+                passed = True
+            elif math.isnan(mql5_val) or math.isnan(py_val):
+                diff = float('nan')
+                passed = False
+            else:
+                diff = abs(mql5_val - py_val)
+                passed = diff <= tolerance
             
             results.append(ValidationResult(
                 test_name=test_name,
@@ -275,6 +290,7 @@ def generate_fixtures():
         'expected_median': str(calculate_median(data1)),
         'expected_stddev': str(calculate_stddev(data1)),
         'expected_mad': str(calculate_mad(data1)),
+        'expected_skewness': str(calculate_skewness(data1)),
     })
     
     # Test case 2: Single element
@@ -284,7 +300,9 @@ def generate_fixtures():
         'input_data': '42.5',
         'expected_mean': '42.5',
         'expected_median': '42.5',
-        'expected_stddev': '0.0',
+        'expected_stddev': 'nan',  # Sample stddev undefined for n=1
+        'expected_mad': '0.0',
+        'expected_skewness': 'nan',
     })
     
     # Test case 3: Constant data
@@ -296,6 +314,7 @@ def generate_fixtures():
         'expected_median': '7.0',
         'expected_stddev': '0.0',
         'expected_mad': '0.0',
+        'expected_skewness': 'nan',  # Skewness undefined when stddev=0
     })
     
     # Test case 4: Symmetric distribution
@@ -303,8 +322,11 @@ def generate_fixtures():
     fixtures.append({
         'test_name': 'symmetric',
         'input_data': ';'.join(map(str, data4)),
-        'expected_mean': '0.0',
-        'expected_skewness': '0.0',
+        'expected_mean': str(calculate_mean(data4)),
+        'expected_median': str(calculate_median(data4)),
+        'expected_stddev': str(calculate_stddev(data4)),
+        'expected_mad': str(calculate_mad(data4)),
+        'expected_skewness': str(calculate_skewness(data4)),
     })
     
     # Test case 5: Positive skew
@@ -312,6 +334,10 @@ def generate_fixtures():
     fixtures.append({
         'test_name': 'positive_skew',
         'input_data': ';'.join(map(str, data5)),
+        'expected_mean': str(calculate_mean(data5)),
+        'expected_median': str(calculate_median(data5)),
+        'expected_stddev': str(calculate_stddev(data5)),
+        'expected_mad': str(calculate_mad(data5)),
         'expected_skewness': str(round(calculate_skewness(data5), 6)),
     })
     
