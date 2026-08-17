@@ -1,0 +1,77 @@
+name: MQL5 Strategy Tester
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+    inputs:
+      expert:
+        description: 'Expert Advisor to test'
+        required: false
+        default: 'CustosAequitas'
+      symbol:
+        description: 'Trading symbol'
+        required: false
+        default: 'EURUSD'
+      timeframe:
+        description: 'Timeframe'
+        required: false
+        default: 'M15'
+      optimization:
+        description: 'Enable optimization'
+        type: boolean
+        required: false
+        default: false
+
+jobs:
+  strategy-test:
+    name: Run MQL5 Strategy Test
+    runs-on: windows-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      
+    - name: Setup MetaTrader
+      uses: FX31337/MQL-Compile-Action@v1
+      with:
+        mt5-path: ${{ runner.tool_cache }}/metaeditor
+        
+    - name: Compile Expert Advisor
+      uses: FX31337/MQL-Compile-Action@v1
+      with:
+        file: "CustosAequitas/Experts/${{ github.event.inputs.expert || 'CustosAequitas' }}.mq5"
+        includes: "CustosAequitas/Include"
+        fail-on-error: true
+        
+    - name: Run Strategy Tester
+      uses: FX31337/MQL-Tester-Action@v1
+      with:
+        expert: "${{ github.event.inputs.expert || 'CustosAequitas' }}"
+        symbol: "${{ github.event.inputs.symbol || 'EURUSD' }}"
+        timeframe: "${{ github.event.inputs.timeframe || 'M15' }}"
+        from-date: "2024.01.01"
+        to-date: "2024.06.30"
+        optimization: "${{ github.event.inputs.optimization || false }}"
+        report-format: "html"
+        
+    - name: Upload test report
+      uses: actions/upload-artifact@v4
+      if: success()
+      with:
+        name: strategy-test-report
+        path: |
+          **/*report*.html
+          **/*report*.csv
+        retention-days: 14
+        
+    - name: Summary
+      run: |
+        echo "## ✅ Strategy Test Complete" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "| Parameter | Value |" >> $GITHUB_STEP_SUMMARY
+        echo "|-----------|-------|" >> $GITHUB_STEP_SUMMARY
+        echo "| Expert | ${{ github.event.inputs.expert || 'CustosAequitas' }} |" >> $GITHUB_STEP_SUMMARY
+        echo "| Symbol | ${{ github.event.inputs.symbol || 'EURUSD' }} |" >> $GITHUB_STEP_SUMMARY
+        echo "| Timeframe | ${{ github.event.inputs.timeframe || 'M15' }} |" >> $GITHUB_STEP_SUMMARY
+        echo "| Period | 2024.01.01 - 2024.06.30 |" >> $GITHUB_STEP_SUMMARY

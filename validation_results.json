@@ -1,0 +1,210 @@
+{
+  "summary": {
+    "total": 25,
+    "passed": 25,
+    "failed": 0,
+    "pass_rate": 1.0
+  },
+  "results": [
+    {
+      "test_name": "simple_sequence",
+      "metric": "mean",
+      "mql5_value": 3.0,
+      "python_value": 3.0,
+      "difference": 0.0,
+      "passed": true
+    },
+    {
+      "test_name": "simple_sequence",
+      "metric": "median",
+      "mql5_value": 3.0,
+      "python_value": 3.0,
+      "difference": 0.0,
+      "passed": true
+    },
+    {
+      "test_name": "simple_sequence",
+      "metric": "stddev",
+      "mql5_value": 1.5811388300841898,
+      "python_value": 1.5811388300841898,
+      "difference": 0.0,
+      "passed": true
+    },
+    {
+      "test_name": "simple_sequence",
+      "metric": "mad",
+      "mql5_value": 1.0,
+      "python_value": 1.0,
+      "difference": 0.0,
+      "passed": true
+    },
+    {
+      "test_name": "simple_sequence",
+      "metric": "skewness",
+      "mql5_value": 0.0,
+      "python_value": 0.0,
+      "difference": 0.0,
+      "passed": true
+    },
+    {
+      "test_name": "single_element",
+      "metric": "mean",
+      "mql5_value": 42.5,
+      "python_value": 42.5,
+      "difference": 0.0,
+      "passed": true
+    },
+    {
+      "test_name": "single_element",
+      "metric": "median",
+      "mql5_value": 42.5,
+      "python_value": 42.5,
+      "difference": 0.0,
+      "passed": true
+    },
+    {
+      "test_name": "single_element",
+      "metric": "stddev",
+      "mql5_value": NaN,
+      "python_value": NaN,
+      "difference": 0.0,
+      "passed": true
+    },
+    {
+      "test_name": "single_element",
+      "metric": "mad",
+      "mql5_value": 0.0,
+      "python_value": 0.0,
+      "difference": 0.0,
+      "passed": true
+    },
+    {
+      "test_name": "single_element",
+      "metric": "skewness",
+      "mql5_value": NaN,
+      "python_value": NaN,
+      "difference": 0.0,
+      "passed": true
+    },
+    {
+      "test_name": "constant_data",
+      "metric": "mean",
+      "mql5_value": 7.0,
+      "python_value": 7.0,
+      "difference": 0.0,
+      "passed": true
+    },
+    {
+      "test_name": "constant_data",
+      "metric": "median",
+      "mql5_value": 7.0,
+      "python_value": 7.0,
+      "difference": 0.0,
+      "passed": true
+    },
+    {
+      "test_name": "constant_data",
+      "metric": "stddev",
+      "mql5_value": 0.0,
+      "python_value": 0.0,
+      "difference": 0.0,
+      "passed": true
+    },
+    {
+      "test_name": "constant_data",
+      "metric": "mad",
+      "mql5_value": 0.0,
+      "python_value": 0.0,
+      "difference": 0.0,
+      "passed": true
+    },
+    {
+      "test_name": "constant_data",
+      "metric": "skewness",
+      "mql5_value": NaN,
+      "python_value": NaN,
+      "difference": 0.0,
+      "passed": true
+    },
+    {
+      "test_name": "symmetric",
+      "metric": "mean",
+      "mql5_value": 0.0,
+      "python_value": 0.0,
+      "difference": 0.0,
+      "passed": true
+    },
+    {
+      "test_name": "symmetric",
+      "metric": "median",
+      "mql5_value": 0.0,
+      "python_value": 0.0,
+      "difference": 0.0,
+      "passed": true
+    },
+    {
+      "test_name": "symmetric",
+      "metric": "stddev",
+      "mql5_value": 1.5811388300841898,
+      "python_value": 1.5811388300841898,
+      "difference": 0.0,
+      "passed": true
+    },
+    {
+      "test_name": "symmetric",
+      "metric": "mad",
+      "mql5_value": 1.0,
+      "python_value": 1.0,
+      "difference": 0.0,
+      "passed": true
+    },
+    {
+      "test_name": "symmetric",
+      "metric": "skewness",
+      "mql5_value": 0.0,
+      "python_value": 0.0,
+      "difference": 0.0,
+      "passed": true
+    },
+    {
+      "test_name": "positive_skew",
+      "metric": "mean",
+      "mql5_value": 2.8,
+      "python_value": 2.8,
+      "difference": 0.0,
+      "passed": true
+    },
+    {
+      "test_name": "positive_skew",
+      "metric": "median",
+      "mql5_value": 1.0,
+      "python_value": 1.0,
+      "difference": 0.0,
+      "passed": true
+    },
+    {
+      "test_name": "positive_skew",
+      "metric": "stddev",
+      "mql5_value": 4.024922359499621,
+      "python_value": 4.024922359499621,
+      "difference": 0.0,
+      "passed": true
+    },
+    {
+      "test_name": "positive_skew",
+      "metric": "mad",
+      "mql5_value": 0.0,
+      "python_value": 0.0,
+      "difference": 0.0,
+      "passed": true
+    },
+    {
+      "test_name": "positive_skew",
+      "metric": "skewness",
+      "mql5_value": 1.5,
+      "python_value": 1.5,
+      "difference": 0.0,
+      "passed": true
+    }
+  ]
+}
