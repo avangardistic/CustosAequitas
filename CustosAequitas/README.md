@@ -1,453 +1,413 @@
-# 🛡️ CustosAequitas - Broker Forensic Analysis & Adaptive Hardening System
+# 🛡️ CustosAequitas — Broker Integrity Sentinel
 
-**Version:** 1.0.0  
-**License:** MIT  
-**Platform:** MetaTrader 5 (MQL5)  
-
-*"The code you write today protects the trades of tomorrow."*
+## *Execution Forensics & Statistical Anomaly Detection for MetaTrader 5*
 
 ---
 
-## 📖 Table of Contents
+## ⚠️ IMPORTANT DISCLAIMER
 
-1. [Overview](#overview)
-2. [Features](#features)
-3. [Installation](#installation)
-4. [Configuration](#configuration)
-5. [Usage](#usage)
-6. [Dashboard](#dashboard)
-7. [Reports](#reports)
-8. [Broker Grading System](#broker-grading-system)
-9. [Hardening Rules](#hardening-rules)
-10. [API Reference](#api-reference)
-11. [Troubleshooting](#troubleshooting)
-12. [License](#license)
+**CustosAequitas is a statistical analysis tool, NOT a manipulation detector.**
 
----
+### What This Tool DOES:
+- ✅ Collect execution data from your trading account
+- ✅ Calculate slippage, latency, and spread statistics
+- ✅ Identify **statistical anomalies** in execution patterns
+- ✅ Generate reports with confidence intervals and sample sizes
+- ✅ Provide evidence-based broker grading with uncertainty measures
 
-## 📋 Overview
-
-**CustosAequitas** (Latin for "Guardian of Equity") is a comprehensive broker forensic analysis and adaptive hardening system for MetaTrader 5. It performs real-time analysis of broker execution quality, detects manipulation patterns, and automatically adjusts trading parameters to protect your capital.
-
-### Key Capabilities
-
-- **Slippage Analysis**: Tracks positive/negative slippage bias and magnitude ratios
-- **Latency Profiling**: Measures execution latency with microsecond precision
-- **Pattern Detection**: Uses fractal dimension and permutation entropy analysis
-- **Manipulation Detection**: Identifies 6 types of broker manipulation
-- **Adaptive Hardening**: Automatically adjusts risk based on broker behavior
-- **Circuit Breaker**: Stops trading when danger conditions are detected
-- **Professional Reports**: Generates HTML reports with actionable insights
+### What This Tool Does NOT Do:
+- ❌ Cannot see broker source code or internal systems
+- ❌ Cannot prove intent or malicious behavior
+- ❌ Cannot guarantee detection of all execution issues
+- ❌ Cannot guarantee trading profits
+- ❌ **Statistical anomalies ≠ proof of misconduct**
 
 ---
 
-## ✨ Features
+## 📖 For Non-Technical Users (Start Here!)
 
-### 🔍 Forensic Analysis
+### What is CustosAequitas?
 
-| Feature | Description |
-|---------|-------------|
-| Slippage Engine | Records every transaction with full metrics |
-| Latency Profiler | Microsecond-precision timing measurements |
-| Fractal Analysis | Higuchi algorithm for pattern complexity |
-| Entropy Analysis | Permutation entropy for randomness detection |
-| Session Breakdown | Separate statistics for Asian/London/NY sessions |
+CustosAequitas (Latin: "Guardian of Equity") is an MQL5 Expert Advisor that monitors how your broker executes your trades. It collects data on:
 
-### 🎯 Manipulation Detection
+- **Slippage**: The difference between expected and actual fill prices
+- **Latency**: How long your orders take to execute
+- **Spread**: The bid-ask spread during your trades
+- **Requotes/Rejections**: How often orders are rejected or re-priced
 
-Detects these manipulation types:
+Think of it as a "fitness tracker" for your broker's execution quality.
 
-1. **MANIP_SLIPPAGE_BIAS** - Systematic negative slippage
-2. **MANIP_LATENCY_SPIKE** - Artificial latency during volatility
-3. **MANIP_REQUOTE_DELAY** - Strategic requoting patterns
-4. **MANIP_STOP_HUNT** - Stop loss hunting behavior
-5. **MANIP_SPREAD_WIDEN** - Abnormal spread widening
-6. **MANIP_PRICE_FREEZE** - Price freeze during high impact news
+### What Do I Need?
 
-### 🛡️ Adaptive Hardening
+1. **MetaTrader 5** platform installed
+2. A **DEMO account** (recommended for initial testing)
+3. Basic understanding of attaching EAs to charts
+4. About 24-48 hours of monitoring time for meaningful data
 
-Automatically adjusts:
+### Quick Start Guide
 
-- Risk percentage per trade
-- Stop loss distances
-- Entry buffers
-- Order types (Market vs Limit)
-- Position sizes
-- Session restrictions
-- Maximum daily trades
+#### Step 1: Install MetaTrader 5
+Download from your broker or [metaquotes.net](https://www.metaquotes.net/en/metatrader5)
 
-### 📊 Broker Grading
+#### Step 2: Open a DEMO Account
+**CRITICAL**: Always test on a demo account first! Active probing can result in real losses on live accounts.
 
-| Grade | Score Range | Meaning |
-|-------|-------------|---------|
-| **A** | 90-100 | Excellent - No manipulation detected |
-| **B** | 75-89 | Good - Minor issues |
-| **C** | 60-74 | Fair - Moderate concerns |
-| **D** | 45-59 | Poor - Significant problems |
-| **E** | 30-44 | Very Poor - Severe manipulation |
-| **F** | 0-29 | Fail - Critical manipulation |
+#### Step 3: Install CustosAequitas
+1. In MT5: File → Open Data Folder
+2. Navigate to: `MQL5/Experts/`
+3. Copy `CustosAequitas.mq5` to this folder
+4. Copy all `.mqh` files to: `MQL5/Include/CustosAequitas/`
+5. Restart MT5 or right-click Navigator → Refresh
 
----
+#### Step 4: Compile the EA
+1. Open MetaEditor (F4 in MT5)
+2. Find `CustosAequitas.mq5` in the Navigator
+3. Click Compile (F7)
+4. Verify "0 errors" message
 
-## 📥 Installation
+#### Step 5: Attach to Chart
+1. Open EURUSD chart (recommended for testing)
+2. Drag `CustosAequitas` from Navigator onto chart
+3. In Parameters tab:
+   - Set `InputEnableActiveProbing = false` (PASSIVE MODE)
+   - Set `InputShowDashboard = true`
+4. Click OK
 
-### Prerequisites
+#### Step 6: Enable Required Permissions
+In the EA properties:
+- ✅ Allow Algo Trading
+- ✅ Allow Live Trading (for passive monitoring)
+- ✅ Allow DLL imports (if required)
 
-- MetaTrader 5 platform
-- MQL5 compiler (build 2000+)
-- Minimum account balance: $100
+#### Step 7: Monitor the Dashboard
+The dashboard shows:
+- Current broker grade (A-F)
+- Slippage statistics
+- Latency metrics
+- Sample size (number of trades observed)
 
-### Steps
+#### Step 8: Review Reports
+After collecting sufficient data (50+ trades):
+- Press F1 to generate a manual report
+- Check `MQL5/Files/CustosAequitas/Reports/` for HTML reports
+- Review CSV data in `MQL5/Files/CustosAequitas/Data/`
 
-1. Copy `CustosAequitas.mq5` to `MQL5/Experts/`
-2. Copy all `.mqh` files to `MQL5/Include/CustosAequitas/`
-3. Compile the EA in MetaEditor
-4. Attach to any chart (recommended: EURUSD M1)
+#### Step 9: Interpret Results
+See the "Understanding Your Results" section below.
 
-### File Structure
-
-```
-MQL5/
-├── Experts/
-│   └── CustosAequitas.mq5
-├── Include/
-│   ├── Constants.mqh
-│   ├── SlippageEngine.mqh
-│   ├── LatencyProfiler.mqh
-│   ├── BrokerAnalyzer.mqh
-│   ├── HardeningManager.mqh
-│   └── ReportGenerator.mqh
-└── Files/
-    └── CustosAequitas/
-        ├── Data/      (CSV exports)
-        └── Reports/   (HTML reports)
-```
+#### Step 10: Take Action (If Needed)
+- Grade A-B: Normal execution, continue trading
+- Grade C: Monitor closely, consider reducing risk
+- Grade D-F: Document evidence, consider broker alternatives
 
 ---
 
-## ⚙️ Configuration
+## 🎯 Operating Modes
 
-### Test Configuration
+### 🔵 PASSIVE MODE (Recommended for Beginners)
+- **What it does**: Observes and records all trade executions
+- **Risk level**: ZERO - No additional trades placed
+- **Use case**: Initial assessment, ongoing monitoring
+- **Settings**: `InputEnableActiveProbing = false`
+
+### 🟡 CONTROLLED PROBE MODE (DEMO ONLY)
+- **What it does**: Places micro test trades to measure execution
+- **Risk level**: LOW on demo, HIGH on live
+- **Use case**: Detailed forensics after passive observation
+- **Settings**: `InputEnableActiveProbing = true` (DEMO ACCOUNTS ONLY)
+
+### 🟢 DEFENSIVE HARDENING (Optional)
+- **What it does**: Adjusts risk parameters based on broker grade
+- **Risk level**: REDUCES risk when issues detected
+- **Use case**: Protecting capital during suspicious periods
+- **Settings**: `InputEnableHardening = true`
+
+---
+
+## 📊 Understanding Your Results
+
+### Broker Grading System
+
+| Grade | Score Range | Meaning | Recommended Action |
+|-------|-------------|---------|-------------------|
+| **A** | 90-100 | Excellent execution | Trade normally |
+| **B** | 75-89 | Good, minor issues | Standard caution |
+| **C** | 60-74 | Fair, moderate concerns | Reduce position sizes |
+| **D** | 40-59 | Poor, significant problems | Consider broker change |
+| **F** | 0-39 | Critical issues | Withdraw funds |
+
+### Key Metrics Explained
+
+#### Slippage Bias Ratio
+- **Normal**: 0.8 - 1.2 (roughly equal positive/negative slippage)
+- **Warning**: 1.2 - 1.8 (negative slippage occurring more often)
+- **Danger**: > 1.8 (systematic negative slippage pattern)
+
+#### Latency
+- **Good**: < 50ms average
+- **Acceptable**: 50-100ms
+- **Concerning**: 100-200ms
+- **Problematic**: > 200ms
+
+#### Sample Size Requirements
+- **< 30 trades**: Insufficient data, ignore results
+- **30-50 trades**: Preliminary analysis only
+- **50-100 trades**: Reliable preliminary grade
+- **100+ trades**: High confidence assessment
+
+---
+
+## 🔧 Configuration Reference
+
+### Essential Parameters
+
+| Parameter | Default | Description | Safe Range |
+|-----------|---------|-------------|------------|
+| `InputEnablePassiveMonitoring` | true | Enable data collection | true/false |
+| `InputEnableActiveProbing` | false | Place test trades | FALSE on live |
+| `InputMinSampleSize` | 30 | Minimum samples for analysis | 20-50 |
+| `InputShowDashboard` | true | Display live dashboard | true/false |
+
+### Analysis Thresholds
 
 | Parameter | Default | Description |
 |-----------|---------|-------------|
-| InputTestBatchSize | 10 | Number of test trades per batch |
-| InputTestVolume | 0.01 | Lot size for test trades |
-| InputTestIntervalMin | 30 | Minutes between automatic tests |
-| InputEnableAutoTest | true | Enable automatic testing |
-
-### Report Settings
-
-| Parameter | Default | Description |
-|-----------|---------|-------------|
-| InputAutoGenerateReport | true | Auto-generate HTML reports |
-| InputReportThreshold | 50 | Min trades before report |
-| InputExportCSV | true | Export data to CSV |
-
-### Hardening Settings
-
-| Parameter | Default | Description |
-|-----------|---------|-------------|
-| InputEnableHardening | true | Enable adaptive hardening |
-| InputBaseRiskPercent | 2.0 | Base risk per trade (%) |
-| InputShowDashboard | true | Show dashboard on chart |
+| `InputSlippageWarningThreshold` | 1.5 | Bias ratio for warning |
+| `InputSlippageDangerThreshold` | 1.8 | Bias ratio for danger |
+| `InputLatencyWarnMs` | 100 | Latency warning (ms) |
+| `InputLatencyDangerMs` | 200 | Latency danger (ms) |
+| `InputRequoteWarnPercent` | 15.0 | Requote rate warning (%) |
+| `InputRequoteDangerPercent` | 30.0 | Requote rate danger (%) |
 
 ### Advanced Settings
 
-| Parameter | Default | Description |
-|-----------|---------|-------------|
-| InputMaxRecords | 5000 | Max records in memory |
-| InputDashboardUpdateSec | 5 | Dashboard refresh rate |
-| InputShowAlerts | true | Show alert messages |
+| Parameter | Default | Expert Notes |
+|-----------|---------|--------------|
+| `InputEnableFractalAnalysis` | true | Higuchi fractal dimension |
+| `InputEnableEntropyAnalysis` | true | Permutation entropy |
+| `InputConfidenceLevel` | 0.95 | Statistical confidence |
+| `InputEnableHardening` | false | Keep false until validated |
 
 ---
 
-## 🚀 Usage
+## 🏗️ Architecture Overview
 
-### Basic Operation
+```
+┌─────────────────────────────────────────────────────────┐
+│                    MQL5 Terminal                         │
+└───────────────────────┬─────────────────────────────────┘
+                        │
+        ┌───────────────┼───────────────┐
+        │               │               │
+    Market Data    Trade Events    Timer Events
+        │               │               │
+        └───────────────┼───────────────┘
+                        │
+              ┌─────────▼─────────┐
+              │  Event Dispatcher │
+              └─────────┬─────────┘
+                        │
+    ┌───────────────────┼───────────────────┐
+    │                   │                   │
+┌───▼────┐      ┌──────▼──────┐     ┌──────▼──────┐
+│Spread  │      │  Slippage   │     │  Latency    │
+│Forensic│      │   Engine    │     │  Profiler   │
+└───┬────┘      └──────┬──────┘     └──────┬──────┘
+    │                  │                   │
+    └──────────────────┼───────────────────┘
+                       │
+             ┌─────────▼─────────┐
+             │  Statistical Core │
+             │  (Pure Functions) │
+             └─────────┬─────────┘
+                       │
+          ┌────────────┼────────────┐
+          │            │            │
+    ┌─────▼─────┐ ┌───▼────┐ ┌─────▼─────┐
+    │  Anomaly  │ │ Broker │ │ Hardening │
+    │ Detector  │ │ Scorer │ │  Manager  │
+    └─────┬─────┘ └───┬────┘ └─────┬─────┘
+          │           │            │
+          └───────────┼────────────┘
+                      │
+             ┌────────▼────────┐
+             │ Report Generator│
+             │   Dashboard     │
+             └─────────────────┘
+```
 
-1. **Attach EA** to any chart
-2. **Wait for first test batch** (or press F2)
-3. **Monitor dashboard** for broker grade
-4. **Review reports** after sufficient data collection
+### Component Responsibilities
 
-### Keyboard Shortcuts
-
-| Key | Action |
-|-----|--------|
-| **F1** | Generate manual report |
-| **F2** | Force test batch execution |
-| **F3** | Toggle hardening on/off |
-
-### Dashboard Buttons
-
-- **📊 Generate Report (F1)** - Create HTML report immediately
-- **🔍 Force Test (F2)** - Execute test batch now
+| Component | Purpose | Testable Independently |
+|-----------|---------|----------------------|
+| `Constants.mqh` | Shared definitions | N/A |
+| `StatisticalCore.mqh` | Pure math functions | ✅ Yes |
+| `SlippageEngine.mqh` | Slippage recording/analysis | ✅ Yes |
+| `LatencyProfiler.mqh` | Latency measurement | ✅ Yes |
+| `SpreadForensics.mqh` | Spread analysis | ✅ Yes |
+| `RequoteAnalyzer.mqh` | Rejection tracking | ✅ Yes |
+| `AnomalyDetector.mqh` | Pattern detection | ✅ Yes |
+| `BrokerScorer.mqh` | Grade calculation | ✅ Yes |
+| `HardeningManager.mqh` | Risk adjustment | ✅ Yes |
+| `ReportGenerator.mqh` | Report generation | ✅ Yes |
+| `Dashboard.mqh` | UI display | ❌ Requires terminal |
 
 ---
 
-## 📊 Dashboard
+## 📈 Evidence Framework
 
-The dashboard displays:
+### Observation → Evidence Hierarchy
 
 ```
-┌─────────────────────────────────────┐
-│ 🛡️ CUSTOSAEQUITAS v1.0.0           │
-├─────────────────────────────────────┤
-│ Grade: A                            │
-│ Score: 95.3/100                     │
-│ Risk: GREEN - Safe                  │
-├─────────────────────────────────────┤
-│ Avg Slippage: 0.5 pips              │
-│ Bias Ratio: 1.02                    │
-│ Avg Latency: 45 ms                  │
-│ Spikes: 2                           │
-├─────────────────────────────────────┤
-│ Total Trades: 150                   │
-│ ✓ Monitoring Active                 │
-│ Next Test: 14:30:00                 │
-└─────────────────────────────────────┘
+RAW DATA
+    ↓
+STATISTICAL ANOMALY (p < 0.05)
+    ↓
+SIGNIFICANT DEVIATION (effect size > threshold)
+    ↓
+PERSISTENT PATTERN (repeated over time)
+    ↓
+DIRECTIONAL BIAS (asymmetric by direction)
+    ↓
+STRONG EVIDENCE (multiple indicators align)
+    ↓
+RECOMMENDATION (actionable conclusion)
 ```
 
-### Color Coding
+### Confidence Levels
 
-| Color | Meaning |
-|-------|---------|
-| 🟢 Green | Safe/Excellent |
-| 🟡 Yellow | Warning/Caution |
-| 🔴 Red | Danger/Stop |
+| Sample Size | Max Confidence | Interpretation |
+|-------------|---------------|----------------|
+| < 30 | 0.40 | Insufficient |
+| 30-49 | 0.60 | Preliminary |
+| 50-99 | 0.80 | Reliable |
+| 100+ | 0.95 | High confidence |
 
 ---
 
-## 📄 Reports
+## 🧪 Testing & Validation
 
-### HTML Report Sections
+### Synthetic Test Scenarios
 
-1. **Executive Summary** - Grade, score, risk level
-2. **Slippage Analysis** - Detailed slippage metrics
-3. **Latency Analysis** - Execution timing breakdown
-4. **Forensic Analysis** - Pattern detection results
-5. **Recommendations** - Actionable advice
+The system should be validated against known scenarios:
 
-### CSV Exports
+1. **Honest Broker Simulation**: Random slippage, symmetric distribution
+2. **Negative Slippage Bias**: Systematically worse fills
+3. **Directional Latency**: BUY faster than SELL (or vice versa)
+4. **Spread Spikes**: Abnormal widening before entries
 
-Two CSV files are generated:
+### Metamorphic Tests
 
-- `slippage_YYYY-MM-DD.csv` - All slippage records
-- `latency_YYYY-MM-DD.csv` - All latency records
-
-### Report Location
-
-Reports are saved to:
-```
-MQL5/Files/CustosAequitas/Reports/
-```
+- Shuffling trade order should not change aggregate statistics
+- Scaling all prices should not change normalized ratios
+- Adding constant offset should not affect difference-based metrics
 
 ---
 
-## 🎯 Broker Grading System
+## ⚠️ Limitations & Caveats
 
-### Score Calculation
+### Known Limitations
 
-```
-Overall Score = (Slippage Score × 0.4) + 
-                (Latency Score × 0.4) + 
-                (Pattern Score × 0.2)
-```
+1. **Historical vs Real Execution**: Strategy tester cannot perfectly replicate live execution
+2. **Market Conditions**: Results vary by symbol, session, volatility regime
+3. **Sample Size**: Small samples produce unreliable grades
+4. **Causality**: Correlation ≠ causation; anomalies have multiple explanations
+5. **MT5 Constraints**: Limited access to server-side timing information
 
-### Slippage Score Factors
+### False Positive Sources
 
-- Bias ratio (negative/positive trades)
-- Magnitude ratio (avg neg/pos slippage)
-- Average slippage in pips
-
-### Latency Score Factors
-
-- Average latency in milliseconds
-- Spike frequency
-- BUY/SELL asymmetry
-
-### Pattern Score Factors
-
-- Fractal dimension (Higuchi algorithm)
-- Permutation entropy
-- Price pattern randomness
+- News events causing legitimate spread widening
+- Low liquidity periods (rollover, holidays)
+- Network connectivity issues (client-side)
+- Platform-specific delays
+- Symbol-specific characteristics
 
 ---
 
-## 🛡️ Hardening Rules
+## 📁 File Structure
 
-### Grade-Based Adjustments
-
-| Grade | Risk Multiplier | Stop Buffer | Max Daily Trades |
-|-------|-----------------|-------------|------------------|
-| A | 100% | 5 pips | 50 |
-| B | 90% | 5 pips | 40 |
-| C | 70% | 6 pips | 25 |
-| D | 50% | 7.5 pips | 15 |
-| E | 30% | 10 pips | 5 |
-| F | 10% | 10 pips | 0 |
-
-### Risk Level Adjustments
-
-| Risk Level | Additional Reduction |
-|------------|---------------------|
-| GREEN | None |
-| YELLOW | 50% reduction |
-| RED | 75% reduction + Circuit Breaker |
-
-### Strategy Recommendations
-
-| Grade | Recommended Strategy |
-|-------|---------------------|
-| A-B | All strategies (Scalping OK) |
-| C | Day Trading & Swing |
-| D | Swing Trading Only |
-| E | Long-term Positions |
-| F | No Trading Recommended |
-
----
-
-## 📚 API Reference
-
-### CSlippageEngine
-
-```mql5
-void AddSlippageRecord(datetime timestamp, string symbol, ...)
-double CalculateBiasRatio()
-double CalculateMagnitudeRatio()
-double GetAverageSlippage()
-STRUCT_SessionStats GetSessionStats(ENUM_SESSION session)
-ENUM_RISK_LEVEL CalculateRiskLevel()
-bool ExportToCSV(string filename)
 ```
-
-### CLatencyProfiler
-
-```mql5
-void StartMeasurement(int operation_type)
-void EndMeasurement(double price = 0)
-double CalculateAverage()
-int DetectSpikes(double multiplier = 2.0)
-bool CheckAsymmetry(double threshold = 20.0)
-ENUM_RISK_LEVEL GetStatus(int warn_ms, int danger_ms)
-```
-
-### CBrokerAnalyzer
-
-```mql5
-void SetSlippageEngine(CSlippageEngine* engine)
-void SetLatencyProfiler(CLatencyProfiler* profiler)
-STRUCT_BrokerProfile GenerateProfile()
-ENUM_BROKER_GRADE CalculateBrokerGrade()
-string[] GenerateRecommendations()
-ENUM_MANIPULATION_TYPE[] DetectManipulations()
-```
-
-### CHardeningManager
-
-```mql5
-void UpdateBrokerProfile(STRUCT_BrokerProfile &profile)
-double CalculateDynamicRisk(double base_risk)
-double GenerateStopPlacement(double entry, bool is_buy)
-bool ShouldEnterTrade()
-string GetRecommendedStrategy()
-```
-
-### CReportGenerator
-
-```mql5
-void SetDataSources(CSlippageEngine*, CLatencyProfiler*, CBrokerAnalyzer*)
-bool GenerateHTMLReport(string filename)
-bool ExportCSVData(string prefix)
-string GenerateSummaryText()
+CustosAequitas/
+├── Experts/
+│   └── CustosAequitas.mq5       # Main EA
+├── Include/
+│   └── CustosAequitas/
+│       ├── Constants.mqh        # Shared definitions
+│       ├── StatisticalCore.mqh  # Math functions
+│       ├── SlippageEngine.mqh   # Slippage analysis
+│       ├── LatencyProfiler.mqh  # Latency tracking
+│       ├── SpreadForensics.mqh  # Spread analysis
+│       ├── RequoteAnalyzer.mqh  # Rejection tracking
+│       ├── AnomalyDetector.mqh  # Pattern detection
+│       ├── BrokerScorer.mqh     # Grade calculation
+│       ├── HardeningManager.mqh # Risk adjustment
+│       ├── ReportGenerator.mqh  # Report generation
+│       ├── Dashboard.mqh        # UI display
+│       └── EventDispatcher.mqh  # Event routing
+├── Data/                        # CSV exports
+├── Reports/                     # HTML reports
+├── Configs/                     # Preset configurations
+└── Docs/                        # Documentation
 ```
 
 ---
 
-## 🔧 Troubleshooting
+## 📚 Research References
 
-### Common Issues
+### Market Microstructure
+- O'Hara, M. (1995). *Market Microstructure Theory*
+- Harris, L. (2003). *Trading and Exchanges*
 
-**EA won't attach to chart**
-- Ensure minimum balance ($100)
-- Check symbol is tradeable
-- Verify terminal connection
+### Execution Quality
+- Hasbrouck, J. (2007). *Empirical Market Microstructure*
+- Kissell, R. (2013). *The Science of Algorithmic Trading*
 
-**No test trades executing**
-- Check InputEnableAutoTest = true
-- Verify market is open
-- Check InputTestIntervalMin setting
-
-**Reports not generating**
-- Check folder permissions
-- Ensure InputAutoGenerateReport = true
-- Verify minimum trade count reached
-
-**Circuit breaker activated**
-- Review generated report
-- Wait for risk level to normalize
-- Consider changing brokers if persistent
-
-### Error Codes
-
-| Code | Meaning |
-|------|---------|
-| 1001 | Invalid account |
-| 1002 | Invalid symbol |
-| 1003 | Balance too low |
-| 1004 | Connection lost |
-| 1005 | Trading disabled |
-| 1006 | Market closed |
+### Statistical Methods
+- Lehmann, E.L. (2005). *Testing Statistical Hypotheses*
+- Good, P.I. (2013). *Permutation Tests*
 
 ---
 
-## 📜 License
+## 🔒 Security & Privacy
 
-**MIT License**
+- All data stored locally in `MQL5/Files/`
+- No external network connections
+- No credentials transmitted
+- CSV/HTML reports contain no sensitive account data
 
-Copyright (c) 2026
+---
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+## 🤝 Contributing
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+This is a research-oriented project. Contributions welcome in:
+- Statistical methodology improvements
+- Additional forensic tests
+- Synthetic ground-truth testing
+- Academic literature integration
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+---
+
+## 📄 License
+
+Open-source for research and educational purposes.
 
 ---
 
 ## 📞 Support
 
-For questions, issues, or suggestions:
-
-1. Check the dashboard for real-time status
-2. Review generated HTML reports
-3. Examine Experts tab for detailed logs
-4. Analyze exported CSV data
+For issues, questions, or research collaboration:
+- GitHub Issues: [avangardistic/CustosAequitas](https://github.com/avangardistic/CustosAequitas)
 
 ---
 
-## ⚠️ Disclaimer
+## 📋 Version Information
 
-This software is for educational and analytical purposes only. Past performance
-does not guarantee future results. Trading forex and CFDs involves significant
-risk of loss. Always test thoroughly on a demo account before live deployment.
+| Component | Version | Methodology |
+|-----------|---------|-------------|
+| CustosAequitas | 1.0.0 | v1.0.0 |
 
-The authors are not responsible for any financial losses incurred through the
-use of this software. Users assume all risks associated with trading.
+**Last Updated**: 2025
 
 ---
 
-**Built with integrity for transparent markets.** 🛡️
+*Remember: CustosAequitas provides statistical evidence about execution patterns, not proof of misconduct. Always interpret results in context of market conditions, and never make decisions based solely on automated analysis.*
