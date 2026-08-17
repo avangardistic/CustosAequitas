@@ -1,3 +1,54 @@
-Nothing should be ignored in this case, as the changes consist only of documentation and markdown files (.md), which are source/config files and not build artifacts, dependencies, or temporary files.
+```
+# Compiled/Generated files
+*.mq5
+*.mq4
+*.ex5
+*.ex4
 
-Output: (empty)
+# Dependencies
+node_modules/
+.venv/
+venv/
+__pycache__/
+*.egg-info/
+.Python
+
+# Build/Output directories
+build/
+dist/
+target/
+out/
+
+# Logs
+*.log
+*.out
+
+# Temporary files
+*.tmp
+*.temp
+*~
+
+# Environment variables
+.env
+.env.local
+.env.*
+
+# Editor/IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Coverage
+.coverage
+htmlcov/
+coverage/
+
+# Python validator artifacts
+Tests/Synthetic/datasets/*.csv
+Tests/Synthetic/datasets/*.json
+```
